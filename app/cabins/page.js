@@ -1,9 +1,10 @@
-﻿import React from 'react'
+﻿import React, { Suspense } from 'react'
 import Navigation from '@/app/_components/Navigation'
 import Counter from '@/app/_components/Counter';
 import CabinCard from '../_components/CabinCard';
 import { getCabins } from '../_lib/data-service';
 import CabinList from '../_components/CabinList';
+import Spinner from '../_components/Spinner';
 
 export default  async function Page() {
   // CHANGE
@@ -23,9 +24,11 @@ export default  async function Page() {
         to paradise.
       </p>
 
-      {cabins.length > 0 && (
+      <Suspense fallback={<Spinner />}>
+        
        <CabinList />
-      )}
+     </Suspense>
+      
     </div>
   );
 }
