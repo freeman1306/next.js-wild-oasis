@@ -1,14 +1,15 @@
-﻿import React, { Suspense } from 'react'
-import Navigation from '@/app/_components/Navigation'
-import Counter from '@/app/_components/Counter';
-import CabinCard from '../_components/CabinCard';
-import { getCabins } from '../_lib/data-service';
+﻿import { Suspense } from 'react';
 import CabinList from '../_components/CabinList';
 import Spinner from '../_components/Spinner';
+import Filter from '../_components/Filter';
+import ReservationReminder from '../_components/ReservationReminder';
 
-export default  async function Page() {
-  // CHANGE
-  const cabins = await getCabins();
+// export const revalidate = 3600
+
+export default function Page({ searchParams }) {
+
+  
+  const filter = searchParams?.capacity || 'all';
 
   return (
     <div>
@@ -19,14 +20,20 @@ export default  async function Page() {
         Cozy yet luxurious cabins, located right in the heart of the Italian
         Dolomites. Imagine waking up to beautiful mountain views, spending your
         days exploring the dark forests around, or just relaxing in your private
-        hot tub under the stars. Enjoy nature's beauty in your own little home
+        hot tub under the stars. Enjoy nature&apos;s beauty in your own little home
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
 
-      <Suspense fallback={<Spinner />}>
+      
+      <div className='flex justify-end mb-8'>
+
+      <Filter />
+      </div>
+      <Suspense fallback={<Spinner />} key={filter}>
         
-       <CabinList />
+        <CabinList filter={filter} />
+        <ReservationReminder/>
      </Suspense>
       
     </div>
