@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { updateGuest } from '@/app/_lib/actions';
+import { updateGuest } from '@/app/_lib/data-service';
 import { useFormStatus } from 'react-dom';
 import SubmitButton from './SubmitButton';
 
